@@ -101,12 +101,31 @@ class Append_Prepend_Content_Admin {
 	}
 
 	/**
+	 * Add settings page as sub-menu of Settings
+	 */
+
+	public function append_prepend_menu_page() {
+
+		add_options_page(
+			'Settings for Append or Prepend Content',
+			'Append Prepend',
+			'manage_options',
+			'append_prepend_content',
+			array( $this, 'settings_page_content' ),
+		);
+
+	}
+
+	/**
 	 * Register settings page at the bottom of the Writing page
 	 */
-	public function register_fields() {
+	public function append_prepend_settings() {
 
 		add_settings_section(
-			'apporprep_section', __( 'Append or Prepend Content', 'apporprep' ), array( $this, 'header_html' ), 'writing'
+			'apporprep_section', 
+			'Append or Prepend Content', 
+			array( $this, 'header_html' ), 
+			'apporprep'
 		);
 
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
@@ -117,32 +136,32 @@ class Append_Prepend_Content_Admin {
 				continue;
 			}
 
+			register_setting(
+				'apporprep',
+				'prepend_' . $post_type
+			);
+
+			register_setting(
+				'apporprep',
+				'append_' . $post_type
+			);
+
 			add_settings_field(
 				'prepend_' . $post_type, 
 				'<label for="prepend_' . $post_type . '">Prepend content to ' . $object->labels->name . '</label>', 
 				array( $this, 'prepend_html' ), 
-				'writing', 
+				'apporprep', 
 				'apporprep_section', 
 				array( 'post_type' => $post_type )
-			);
-
-			register_setting(
-				'writing',
-				'prepend_' . $post_type
 			);
 
 			add_settings_field(
 				'append_' . $post_type,
 				'<label for="append_' . $post_type . '">Append content to ' . $object->labels->name . '</label>',
 				array( $this, 'append_html' ),
-				'writing',
+				'apporprep',
 				'apporprep_section',
 				array( 'post_type' => $post_type  )
-			);
-
-			register_setting(
-				'writing',
-				'append_' . $post_type
 			);
 
 		}
@@ -154,12 +173,8 @@ class Append_Prepend_Content_Admin {
 	 */
 	public function header_html() {
 
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		echo '<p>The settings below allow you to append or prepend content to the listed post types on your site. Shortcodes are allowed inside these sections.</p>';
 
-		?>
-		<p><?php _e( 'Allows you to append or prepend content to any Post Type on your site. Shortcodes allowed.', 'apporprep' ); ?></p>
-		<pre><?php // print_r($post_types); ?></pre>
-		<?php
 	}
 
 	/**
@@ -172,10 +187,10 @@ class Append_Prepend_Content_Admin {
 			$value, 
 			'prepend_' . $post_type, 
 			array( 
-				'quicktags' => false,
-				'media_buttons' => false,
+				'quicktags' => true,
+				'media_buttons' => true,
 				'textarea_rows' => 10,
-				'teeny' => true
+				'teeny' => false,
 			)
 		);
 	}
@@ -193,11 +208,26 @@ class Append_Prepend_Content_Admin {
 			$value,
 			'append_' . $post_type,
 			array(
-				'quicktags' => false,
-				'media_buttons' => false,
+				'quicktags' => true,
+				'media_buttons' => true,
 				'textarea_rows' => 10,
-				'teeny' => true 			)
+				'teeny' => false,
+			)
 		);
+
+	}
+
+	/**
+	 * Content of the plugin settings page
+	 */
+	public function settings_page_content() {
+
+		// Check user capabilities
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
+		include 'partials/append-prepend-content-admin-display.php';
 
 	}
 
