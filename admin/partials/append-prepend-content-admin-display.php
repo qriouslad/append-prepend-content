@@ -14,3 +14,19 @@
 ?>
 
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
+
+<div class="wrap append-prepend-settings">
+
+	<form action="options.php" method="post">
+		<?php
+
+			settings_fields( 'apporprep' );
+
+			do_settings_sections( 'apporprep' );
+
+			submit_button( 'Save Settings' );
+
+		?>
+	</form>
+
+</div>
