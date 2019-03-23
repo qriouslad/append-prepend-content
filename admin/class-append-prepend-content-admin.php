@@ -113,7 +113,7 @@ class Append_Prepend_Content_Admin {
 
 		foreach ( $post_types as $post_type => $object ) {
 
-			if ( ( 'page' === $post_type ) || ( 'attachment' === $post_type ) ) {
+			if ( ( 'page' === $post_type ) || ( 'attachment' === $post_type ) || ( 'fl-builder-template' === $post_type ) ) {
 				continue;
 			}
 
@@ -174,7 +174,7 @@ class Append_Prepend_Content_Admin {
 			array( 
 				'quicktags' => false,
 				'media_buttons' => false,
-				'textarea_rows' => 5,
+				'textarea_rows' => 10,
 				'teeny' => true
 			)
 		);
@@ -195,7 +195,7 @@ class Append_Prepend_Content_Admin {
 			array(
 				'quicktags' => false,
 				'media_buttons' => false,
-				'textarea_rows' => 5,
+				'textarea_rows' => 10,
 				'teeny' => true 			)
 		);
 
