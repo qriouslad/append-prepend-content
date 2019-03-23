@@ -9,7 +9,7 @@
  * that starts the plugin.
  *
  * @link              https://bowo.io
- * @since             1.2.0
+ * @since             1.3.0
  * @package           Append_Prepend_Content
  *
  * @wordpress-plugin
