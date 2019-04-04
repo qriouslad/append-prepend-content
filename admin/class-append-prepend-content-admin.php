@@ -111,7 +111,7 @@ class Append_Prepend_Content_Admin {
 			'Append Prepend',
 			'manage_options',
 			'append_prepend_content',
-			array( $this, 'settings_page_content' ),
+			array( $this, 'settings_page_content' )
 		);
 
 	}
