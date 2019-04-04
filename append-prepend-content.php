@@ -15,6 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Append Prepend Content
  * Plugin URI:        https://github.com/qriouslad/append-prepend-content
+ * GitHub Plugin URI: https://github.com/qriouslad/append-prepend-content
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
  * Author:            Bowo
